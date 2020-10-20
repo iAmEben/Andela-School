@@ -23,11 +23,11 @@ public class LoginScreen extends AppCompatActivity {
 
         //sets an onclick listener for the buttons
         login.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 Intent loginIntent = new Intent(LoginScreen.this, LoginActivity.class);
-                 startActivity(loginIntent);
-             }
+            @Override
+            public void onClick(View view) {
+                Intent loginIntent = new Intent(LoginScreen.this, LoginActivity.class);
+                startActivity(loginIntent);
+            }
         });
 
         register.setOnClickListener(new View.OnClickListener() {

@@ -8,10 +8,14 @@
     <string name="ft_login">Log in</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="staffs">Staffs</string>
     <string name="students">Students</string>
-    <string name="signup">SIGN UP</string>
-    <string name="back">BACK</string>
+    <string name="signup">Sign up</string>
+    <string name="back">back</string>
+    <string name="temrs_conditions"> <u> "terms &amp; conditions" </u> </string>
+    <string name="log_in"><u>Log in</u></string>
+    <string name="courses_offering">Course Offering</string>
+    <string name="level">Level</string>
 </resources>
