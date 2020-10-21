@@ -18,7 +18,7 @@ public class StaffsRegisterFragment extends Fragment {
     private StaffsRegisterAdapter adapter;
     private androidx.cardview.widget.CardView cardView;
 
-    private StaffsRegisterFragment(){
+    public StaffsRegisterFragment(){
         // Required empty public constructor
     }
 
