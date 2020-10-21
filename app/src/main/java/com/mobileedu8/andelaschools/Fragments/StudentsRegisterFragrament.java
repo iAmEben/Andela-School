@@ -20,7 +20,7 @@ public class StudentsRegisterFragrament extends Fragment {
 
     private StudentsRegisterAdapter adapter;
 
-    private StudentsRegisterFragrament(){
+    public StudentsRegisterFragrament(){
         // Required empty public constructor
     }
 
