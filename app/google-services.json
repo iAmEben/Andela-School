@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "596033135535",
+    "firebase_url": "https://andelaschools-a1130.firebaseio.com",
+    "project_id": "andelaschools-a1130",
+    "storage_bucket": "andelaschools-a1130.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596033135535:android:98eaaa45d11ea6e153855a",
+        "android_client_info": {
+          "package_name": "com.mobileedu8.andelaschools"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596033135535-j28d9ois46aegaa8kg0gljtmbjgcjp22.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mobileedu8.andelaschools",
+            "certificate_hash": "6bbc127ef2795e6a63399212b4bd74557b901ea4"
+          }
+        },
+        {
+          "client_id": "596033135535-1rdsdajra20njh3od12nejvnudu8aop4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA833zAA-LG6Rj38QhUlMYjqMK7l0Uk1mk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596033135535-1rdsdajra20njh3od12nejvnudu8aop4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
