@@ -130,7 +130,7 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         validator = null;
+        super.onDestroy();
     }
 }

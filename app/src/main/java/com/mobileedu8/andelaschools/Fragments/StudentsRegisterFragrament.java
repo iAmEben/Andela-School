@@ -141,4 +141,11 @@ public class StudentsRegisterFragrament extends Fragment implements Validator.Va
         }
 
     }
+
+
+    @Override
+    public void onDestroy() {
+        validator = null;
+        super.onDestroy();
+    }
 }
