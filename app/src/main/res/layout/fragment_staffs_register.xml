@@ -29,47 +29,51 @@
                     android:paddingBottom="16dp">
 
                 <EditText
-                        android:id="@+id/staffs_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:background="@drawable/rounded_edit_text"
-                        android:drawableStart="@drawable/ic_name"
-                        android:drawableTint="@color/colorPrimary"
-                        android:drawablePadding="16dp"
-                        android:hint="Name"
-                        android:paddingStart="10dp"
-                        android:textStyle="normal"/>
+                    android:id="@+id/staffs_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:inputType="textPersonName"
+                    android:background="@drawable/rounded_edit_text"
+                    android:drawableStart="@drawable/ic_name"
+                    android:drawableTint="@color/colorPrimary"
+                    android:drawablePadding="16dp"
+                    android:hint="Name"
+                    android:paddingStart="10dp"
+                    android:textStyle="normal" />
 
                 <EditText
-                        android:id="@+id/staffs_lastName"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@drawable/rounded_edit_text"
-                        android:drawableStart="@drawable/ic_last_name"
-                        android:drawableTint="@color/colorPrimary"
-                        android:drawablePadding="16dp"
-                        android:hint="Last name"
-                        android:paddingStart="10dp"
-                        android:textStyle="normal"/>
+                    android:id="@+id/staffs_lastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:inputType="textPersonName"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:drawableStart="@drawable/ic_last_name"
+                    android:drawableTint="@color/colorPrimary"
+                    android:drawablePadding="16dp"
+                    android:hint="Last name"
+                    android:paddingStart="10dp"
+                    android:textStyle="normal" />
 
                 <EditText
-                        android:id="@+id/staffs_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@drawable/rounded_edit_text"
-                        android:drawableStart="@drawable/ic_email"
-                        android:drawableTint="@color/colorPrimary"
-                        android:drawablePadding="16dp"
-                        android:hint="Email"
-                        android:paddingStart="10dp"
-                        android:textStyle="normal"/>
+                    android:id="@+id/staffs_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:inputType="textEmailAddress"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:drawableStart="@drawable/ic_email"
+                    android:drawableTint="@color/colorPrimary"
+                    android:drawablePadding="16dp"
+                    android:hint="Email"
+                    android:paddingStart="10dp"
+                    android:textStyle="normal" />
 
                 <EditText
                     android:id="@+id/staff_password"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:inputType="textPassword"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/rounded_edit_text"
                     android:drawableStart="@drawable/ic_password"
