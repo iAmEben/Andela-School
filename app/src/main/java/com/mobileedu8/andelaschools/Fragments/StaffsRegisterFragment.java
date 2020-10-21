@@ -160,7 +160,7 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
             }
 
             if (view instanceof CheckBox && errors.size() == 1) {
-                Snackbar.make(rootView, error.getCollatedErrorMessage(getActivity()), BaseTransientBottomBar.LENGTH_LONG).show();
+                Snackbar.make(rootView, error.getCollatedErrorMessage(getActivity()), Snackbar.LENGTH_LONG).show();
             }
         }
     }
