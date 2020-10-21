@@ -37,7 +37,7 @@
                     android:drawableStart="@drawable/ic_name"
                     android:drawableTint="@color/colorPrimary"
                     android:drawablePadding="16dp"
-                    android:hint="Name"
+                    android:hint="First name"
                     android:paddingStart="10dp"
                     android:textStyle="normal" />
 
