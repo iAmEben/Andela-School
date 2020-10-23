@@ -1,10 +1,13 @@
 package com.mobileedu8.andelaschools.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,6 +20,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.mobileedu8.andelaschools.Activity.LoginActivity;
 import com.mobileedu8.andelaschools.Adapters.StaffsRegisterAdapter;
 import com.mobileedu8.andelaschools.Dbentities.Lecturer;
 import com.mobileedu8.andelaschools.R;
@@ -33,6 +37,8 @@ public class StaffsRegisterFragment extends Fragment {
     private EditText lastNameInput;
     private EditText emailInput;
     private EditText passwordInput;
+    private CheckBox checkBox;
+    private TextView staffLogin;
 
     private StaffsRegisterFragment(){
         // Required empty public constructor
@@ -73,6 +79,10 @@ public class StaffsRegisterFragment extends Fragment {
         lastNameInput = v.findViewById(R.id.staffs_lastName);
         emailInput = v.findViewById(R.id.staffs_email);
         passwordInput = v.findViewById(R.id.password);
+        checkBox = v.findViewById(R.id.staff_terms_and_condition);
+        staffLogin = v.findViewById(R.id.staff_login);
+
+        goToLogInActivity();
 
         // Handle event click register button to add new lecturer
         staffRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +95,7 @@ public class StaffsRegisterFragment extends Fragment {
                  * Call {@link com.mobileedu8.andelaschools.Fragments#isInputValid() } to check if user entered all required account details
                  * If provided then proceed to registration
                  */
-                if ( isInputValid() ) {
+                if ( isInputValid() && checkBox.isChecked() ) {
 
                     // Create new lecturer with values from input fields
                     Lecturer newLecturer = new Lecturer(
@@ -104,8 +114,11 @@ public class StaffsRegisterFragment extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
+                                    clearField();
                                     Toast.makeText(v.getContext(),
                                             "Lecturer account create success", Toast.LENGTH_LONG).show();
+                                    Intent staffSignUpIntent = new Intent(getContext(), LoginActivity.class);
+                                    startActivity(staffSignUpIntent);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -116,13 +129,23 @@ public class StaffsRegisterFragment extends Fragment {
                                 }
                             });
 
-                } else {
+                }
+                else if(isInputValid() && !(checkBox.isChecked())){
+
+                    Toast.makeText(v.getContext(),
+                            "Accept terms and Condition before you can continue", Toast.LENGTH_LONG).show();
+
+                }
+
+                else {
 
                     Toast.makeText(v.getContext(),
                             "Some required fields are empty. Try again", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
+
 
     }
 
@@ -135,5 +158,23 @@ public class StaffsRegisterFragment extends Fragment {
                         emailInput.getText().toString().isEmpty() ||
                         passwordInput.getText().toString().isEmpty()
         );
+    }
+    // Set field to empty when registration is successful
+    public void clearField(){
+        firstNameInput.setText("");
+        lastNameInput.setText("");
+        emailInput.setText("");
+        passwordInput.setText("");
+    }
+
+    //Handles click event to Login activity
+    private void goToLogInActivity(){
+        staffLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent staffLoginIntent = new Intent(getContext(), LoginActivity.class);
+                startActivity(staffLoginIntent);
+            }
+        });
     }
 }

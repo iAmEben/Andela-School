@@ -85,6 +85,7 @@
                         android:layout_marginTop="16dp">
 
                     <CheckBox
+                            android:id="@+id/staff_terms_and_condition"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -239,11 +240,12 @@
                     android:text="Already have account ?"/>
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/log_in"
-                    android:layout_marginStart="8dp"
-                    android:textStyle="bold"/>
+                android:id="@+id/staff_login"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:text="@string/log_in"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
