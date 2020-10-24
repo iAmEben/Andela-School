@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/student_sign_up_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -28,21 +29,23 @@
                 android:paddingBottom="16dp">
 
                 <EditText
-                    android:id="@+id/staffs_name"
+                    android:id="@+id/student_name"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:inputType="textPersonName"
                     android:background="@drawable/rounded_edit_text"
                     android:drawableStart="@drawable/ic_name"
                     android:drawableTint="@color/colorPrimary"
                     android:drawablePadding="16dp"
-                    android:hint="Name"
+                    android:hint="First name"
                     android:paddingStart="10dp"
                     android:textStyle="normal" />
 
                 <EditText
-                    android:id="@+id/staffs_lastName"
+                    android:id="@+id/student_lastName"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:inputType="textPersonName"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/rounded_edit_text"
                     android:drawableStart="@drawable/ic_last_name"
@@ -53,9 +56,10 @@
                     android:textStyle="normal" />
 
                 <EditText
-                    android:id="@+id/staffs_email"
+                    android:id="@+id/student_email"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:inputType="textEmailAddress"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/rounded_edit_text"
                     android:drawableStart="@drawable/ic_email"
@@ -66,9 +70,10 @@
                     android:textStyle="normal" />
 
                 <EditText
-                    android:id="@+id/email"
+                    android:id="@+id/student_password"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:inputType="textPassword"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/rounded_edit_text"
                     android:drawableStart="@drawable/ic_password"
@@ -83,6 +88,7 @@
                         android:id="@+id/course_offered"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
+                        android:inputType="text"
                         android:layout_marginTop="16dp"
                         android:drawableStart="@drawable/ic_books"
                         android:background="@drawable/rounded_edit_text"
@@ -98,6 +104,7 @@
                     android:id="@+id/level"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:inputType="number"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/rounded_edit_text"
                     android:drawableTint="@color/colorPrimary"
@@ -115,6 +122,7 @@
                     android:layout_marginTop="16dp">
 
                     <CheckBox
+                        android:id="@+id/student_accept_tc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -134,6 +142,7 @@
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/student_sign_up_btn"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginTop="20dp"

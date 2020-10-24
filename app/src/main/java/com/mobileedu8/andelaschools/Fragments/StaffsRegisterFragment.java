@@ -17,22 +17,56 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ScrollView;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.mobileedu8.andelaschools.Adapters.StaffsRegisterAdapter;
 import com.mobileedu8.andelaschools.Dbentities.Lecturer;
 import com.mobileedu8.andelaschools.R;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Checked;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
+
+import java.util.List;
 
 
+public class StaffsRegisterFragment extends Fragment implements Validator.ValidationListener {
 
-public class StaffsRegisterFragment extends Fragment {
+    Validator validator;
+
+    private ScrollView rootView;
+
+    @NotEmpty
+    @Length(min = 2, max = 30, message = "First name should be between 2 to 30 characters")
+    private EditText staffFirstNameEditText;
+
+    @NotEmpty
+    @Length(min = 2, max = 30, message = "Last name should be between 2 to 30 characters")
+    private EditText staffLastBaneEditText;
+
+    @Email
+    private EditText staffEmailEditText;
+
+    @Password(min = 6, message = "Invalid password, password should be above 6 characters")
+    private EditText staffPasswordEditText;
+
+    @Checked(message = "You must agree to terms and condition")
+    private CheckBox agreeToTCCheckBox;
+
+    private Button staffSignUpBtn;
 
     private StaffsRegisterAdapter adapter;
     private androidx.cardview.widget.CardView cardView;
-
-    private Button staffRegisterBtn;
-    private EditText firstNameInput;
-    private EditText lastNameInput;
-    private EditText emailInput;
-    private EditText passwordInput;
 
     private StaffsRegisterFragment(){
         // Required empty public constructor
@@ -58,82 +92,82 @@ public class StaffsRegisterFragment extends Fragment {
         adapter = new StaffsRegisterAdapter();
 
 
-
+        setUpValidations();
         initId(v);
         return v;
     }
 
-    private void initId(final View v) {
+    private void setUpValidations() {
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+    }
 
-        // Locate all necessary views and assign them to the instance variables
-        staffRegisterBtn = v.findViewById(R.id.staffRegisterBtn);
+    private void initId(View v) {
 
-        // Input fields for lecturer account registration
-        firstNameInput = v.findViewById(R.id.staffs_name);
-        lastNameInput = v.findViewById(R.id.staffs_lastName);
-        emailInput = v.findViewById(R.id.staffs_email);
-        passwordInput = v.findViewById(R.id.password);
+        rootView = v.findViewById(R.id.staff_sign_up_root_view);
+        staffFirstNameEditText = v.findViewById(R.id.staffs_name);
+        staffLastBaneEditText = v.findViewById(R.id.staffs_lastName);
+        staffEmailEditText = v.findViewById(R.id.staffs_email);
+        staffPasswordEditText = v.findViewById(R.id.staff_password);
+        agreeToTCCheckBox = v.findViewById(R.id.agree_to_tc);
+        staffSignUpBtn = v.findViewById(R.id.staff_sign_up_btn);
 
-        // Handle event click register button to add new lecturer
-        staffRegisterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                /**
-                 * @author Andrews Kangah
-                 * @Date 21-10-2020
-                 * Call {@link com.mobileedu8.andelaschools.Fragments#isInputValid() } to check if user entered all required account details
-                 * If provided then proceed to registration
-                 */
-                if ( isInputValid() ) {
-
-                    // Create new lecturer with values from input fields
-                    Lecturer newLecturer = new Lecturer(
-                            firstNameInput.getText().toString(),
-                            lastNameInput.getText().toString(),
-                            emailInput.getText().toString(),
-                            passwordInput.getText().toString()
-                    );
-
-                    // Get reference to firebase instance
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-                    // Add new lecturer to the staff collection
-                    db.collection("staff")
-                            .add(newLecturer)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Toast.makeText(v.getContext(),
-                                            "Lecturer account create success", Toast.LENGTH_LONG).show();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(v.getContext(),
-                                            "Lecturer account create failed", Toast.LENGTH_LONG).show();
-                                }
-                            });
-
-                } else {
-
-                    Toast.makeText(v.getContext(),
-                            "Some required fields are empty. Try again", Toast.LENGTH_LONG).show();
-                }
-            }
+        staffSignUpBtn.setOnClickListener(view -> {
+            validator.validate();
         });
 
     }
 
-    // Check if user entered values in all input fields
-    private boolean isInputValid() {
-
-        return !(
-                firstNameInput.getText().toString().isEmpty() ||
-                        lastNameInput.getText().toString().isEmpty() ||
-                        emailInput.getText().toString().isEmpty() ||
-                        passwordInput.getText().toString().isEmpty()
+    @Override
+    public void onValidationSucceeded() {
+        Toast.makeText(getActivity(), "Validation Successful", Toast.LENGTH_SHORT).show();
+        Lecturer newLecturer = new Lecturer(
+                staffFirstNameEditText.getText().toString().trim(),
+                staffLastBaneEditText.getText().toString().trim(),
+                staffEmailEditText.getText().toString().trim(),
+                staffPasswordEditText.getText().toString()
         );
+
+        // Get reference to firebase instance
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Add new lecturer to the staff collection
+        db.collection("staff")
+                .add(newLecturer)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(getActivity(),
+                                "Lecturer account create success", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(),
+                                "Lecturer account create failed", Toast.LENGTH_LONG).show();
+                    }
+                });
+    } // end
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error: errors) {
+            View view = error.getView();
+
+            if (view instanceof EditText) {
+                ((EditText) view).setError(error.getCollatedErrorMessage(getActivity()));
+            }
+
+            if (view instanceof CheckBox && errors.size() == 1) {
+                Snackbar.make(rootView, error.getCollatedErrorMessage(getActivity()), Snackbar.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        validator = null;
+        super.onDestroy();
     }
 }
