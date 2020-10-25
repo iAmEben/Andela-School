@@ -1,10 +1,12 @@
 package com.mobileedu8.andelaschools.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.mobileedu8.andelaschools.Activity.LoginActivity;
 import com.mobileedu8.andelaschools.Adapters.StaffsRegisterAdapter;
 import com.mobileedu8.andelaschools.Dbentities.Lecturer;
 import com.mobileedu8.andelaschools.R;
@@ -67,6 +70,7 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
 
     private StaffsRegisterAdapter adapter;
     private androidx.cardview.widget.CardView cardView;
+    private TextView staffLoginTxt;
 
     private StaffsRegisterFragment(){
         // Required empty public constructor
@@ -94,6 +98,7 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
 
         setUpValidations();
         initId(v);
+        setLoginClickEvent();
         return v;
     }
 
@@ -111,16 +116,18 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
         staffPasswordEditText = v.findViewById(R.id.staff_password);
         agreeToTCCheckBox = v.findViewById(R.id.agree_to_tc);
         staffSignUpBtn = v.findViewById(R.id.staff_sign_up_btn);
+        staffLoginTxt = v.findViewById(R.id.staff_login_txt);
 
         staffSignUpBtn.setOnClickListener(view -> {
-            validator.validate();
+           validator.validate();
+
         });
 
     }
 
     @Override
     public void onValidationSucceeded() {
-        Toast.makeText(getActivity(), "Validation Successful", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Validation Successful", Toast.LENGTH_SHORT).show();
         Lecturer newLecturer = new Lecturer(
                 staffFirstNameEditText.getText().toString().trim(),
                 staffLastBaneEditText.getText().toString().trim(),
@@ -139,6 +146,9 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(getActivity(),
                                 "Lecturer account create success", Toast.LENGTH_LONG).show();
+                        Intent staffSigninIntent = new Intent(getContext(), LoginActivity.class);
+                        startActivity(staffSigninIntent);
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -169,5 +179,15 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
     public void onDestroy() {
         validator = null;
         super.onDestroy();
+    }
+
+    private void setLoginClickEvent(){
+        staffLoginTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent staffLoginIntent = new Intent(getContext(), LoginActivity.class);
+                startActivity(staffLoginIntent);
+            }
+        });
     }
 }
