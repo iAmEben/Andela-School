@@ -1,5 +1,6 @@
 package com.mobileedu8.andelaschools.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.widget.Button;
@@ -25,6 +26,7 @@ import android.widget.ScrollView;
 
 
 import com.google.android.material.snackbar.Snackbar;
+import com.mobileedu8.andelaschools.Activity.StaffsMainActivity;
 import com.mobileedu8.andelaschools.Adapters.StaffsRegisterAdapter;
 import com.mobileedu8.andelaschools.Dbentities.Lecturer;
 import com.mobileedu8.andelaschools.R;
@@ -131,6 +133,7 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
             public void registerSuccess(@NonNull Task<AuthResult> task, @NonNull String id, @NonNull FirebaseUser firebaseUser) {
                 Toast.makeText(getActivity(),
                         "Lecturer account create success", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getActivity(), StaffsMainActivity.class));
             }
 
             @Override
