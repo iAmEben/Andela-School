@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -25,6 +28,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.mobileedu8.andelaschools.Adapters.StaffsRegisterAdapter;
 import com.mobileedu8.andelaschools.Dbentities.Lecturer;
 import com.mobileedu8.andelaschools.R;
+import com.mobileedu8.andelaschools.firebase.auth.AuthService;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Checked;
@@ -122,7 +126,21 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
                 staffPasswordEditText.getText().toString()
         );
 
-        // Get reference to firebase instance
+        AuthService.getInstance().registerLecturer(newLecturer, new AuthService.OnRegisterComplete() {
+            @Override
+            public void registerSuccess(@NonNull Task<AuthResult> task, @NonNull String id, @NonNull FirebaseUser firebaseUser) {
+                Toast.makeText(getActivity(),
+                        "Lecturer account create success", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void registerFailure(@NonNull Task<AuthResult> task) {
+                Toast.makeText(getActivity(),
+                        "Lecturer account create failed", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        /*// Get reference to firebase instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Add new lecturer to the staff collection
@@ -141,7 +159,7 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
                         Toast.makeText(getActivity(),
                                 "Lecturer account create failed", Toast.LENGTH_LONG).show();
                     }
-                });
+                });*/
     } // end
 
     @Override
