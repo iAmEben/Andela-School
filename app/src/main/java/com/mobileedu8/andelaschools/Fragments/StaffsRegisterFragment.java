@@ -1,8 +1,8 @@
 package com.mobileedu8.andelaschools.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,20 +15,22 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
+
 import com.google.android.material.snackbar.Snackbar;
+import com.mobileedu8.andelaschools.Activity.StaffsMainActivity;
 import com.mobileedu8.andelaschools.Adapters.StaffsRegisterAdapter;
 import com.mobileedu8.andelaschools.Dbentities.Lecturer;
 import com.mobileedu8.andelaschools.R;
+import com.mobileedu8.andelaschools.firebase.auth.AuthService;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Checked;
@@ -66,7 +68,6 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
     private Button staffSignUpBtn;
 
     private StaffsRegisterAdapter adapter;
-    private androidx.cardview.widget.CardView cardView;
 
     private StaffsRegisterFragment(){
         // Required empty public constructor
@@ -86,7 +87,6 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_staffs_register, container, false);
         adapter = new StaffsRegisterAdapter();
@@ -128,7 +128,22 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
                 staffPasswordEditText.getText().toString()
         );
 
-        // Get reference to firebase instance
+        AuthService.getInstance().registerLecturer(newLecturer, new AuthService.OnRegisterComplete() {
+            @Override
+            public void registerSuccess(@NonNull Task<AuthResult> task, @NonNull String id, @NonNull FirebaseUser firebaseUser) {
+                Toast.makeText(getActivity(),
+                        "Lecturer account create success", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getActivity(), StaffsMainActivity.class));
+            }
+
+            @Override
+            public void registerFailure(@NonNull Task<AuthResult> task) {
+                Toast.makeText(getActivity(),
+                        "Lecturer account create failed", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        /*// Get reference to firebase instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Add new lecturer to the staff collection
@@ -147,7 +162,7 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
                         Toast.makeText(getActivity(),
                                 "Lecturer account create failed", Toast.LENGTH_LONG).show();
                     }
-                });
+                });*/
     } // end
 
     @Override
