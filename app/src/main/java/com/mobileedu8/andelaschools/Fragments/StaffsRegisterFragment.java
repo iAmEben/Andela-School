@@ -2,7 +2,6 @@ package com.mobileedu8.andelaschools.Fragments;
 
 import android.os.Bundle;
 
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,13 +17,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.mobileedu8.andelaschools.Adapters.StaffsRegisterAdapter;
 import com.mobileedu8.andelaschools.Dbentities.Lecturer;
@@ -66,7 +62,6 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
     private Button staffSignUpBtn;
 
     private StaffsRegisterAdapter adapter;
-    private androidx.cardview.widget.CardView cardView;
 
     private StaffsRegisterFragment(){
         // Required empty public constructor
@@ -86,7 +81,6 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_staffs_register, container, false);
         adapter = new StaffsRegisterAdapter();
