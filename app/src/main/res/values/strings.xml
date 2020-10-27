@@ -19,4 +19,7 @@
     <string name="courses_offering">Course Offering</string>
     <string name="level">Level</string>
     <string name="recent_activity">Recent Activity</string>
+
+    <string name="dialog_registering">Registering … </string>
+    <string name="dialog_creating_user">Creating user …</string>
 </resources>

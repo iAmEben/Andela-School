@@ -1,5 +1,6 @@
 package com.mobileedu8.andelaschools.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -44,9 +45,11 @@ import java.util.List;
 
 public class StaffsRegisterFragment extends Fragment implements Validator.ValidationListener {
 
-    Validator validator;
+    private Validator validator;
 
     private ScrollView rootView;
+
+    private ProgressDialog progressDialog;
 
     @NotEmpty
     @Length(min = 2, max = 30, message = "First name should be between 2 to 30 characters")
@@ -113,14 +116,21 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
         staffSignUpBtn = v.findViewById(R.id.staff_sign_up_btn);
 
         staffSignUpBtn.setOnClickListener(view -> {
+            progressDialog.show();
             validator.validate();
         });
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle(R.string.dialog_registering);
+        progressDialog.setMessage(getString(R.string.dialog_creating_user));
+        progressDialog.setIndeterminate(true);
 
     }
 
     @Override
     public void onValidationSucceeded() {
-        Toast.makeText(getActivity(), "Validation Successful", Toast.LENGTH_SHORT).show();
+
         Lecturer newLecturer = new Lecturer(
                 staffFirstNameEditText.getText().toString().trim(),
                 staffLastBaneEditText.getText().toString().trim(),
@@ -131,13 +141,16 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
         AuthService.getInstance().registerLecturer(newLecturer, new AuthService.OnRegisterComplete() {
             @Override
             public void registerSuccess(@NonNull Task<AuthResult> task, @NonNull String id, @NonNull FirebaseUser firebaseUser) {
+                progressDialog.dismiss();
                 Toast.makeText(getActivity(),
                         "Lecturer account create success", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(getActivity(), StaffsMainActivity.class));
+                getActivity().finish();
             }
 
             @Override
             public void registerFailure(@NonNull Task<AuthResult> task) {
+                progressDialog.dismiss();
                 Toast.makeText(getActivity(),
                         "Lecturer account create failed", Toast.LENGTH_LONG).show();
             }
@@ -167,6 +180,9 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
+
+        progressDialog.dismiss();
+
         for (ValidationError error: errors) {
             View view = error.getView();
 

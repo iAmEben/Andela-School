@@ -27,6 +27,7 @@ public class LoginScreen extends AppCompatActivity {
             public void onClick(View view) {
                 Intent loginIntent = new Intent(LoginScreen.this, LoginActivity.class);
                 startActivity(loginIntent);
+                finish();
             }
         });
 
@@ -35,6 +36,7 @@ public class LoginScreen extends AppCompatActivity {
             public void onClick(View view) {
                 Intent registerIntent = new Intent(LoginScreen.this, RegisterActivity.class);
                 startActivity(registerIntent);
+                finish();
             }
         });
     }
