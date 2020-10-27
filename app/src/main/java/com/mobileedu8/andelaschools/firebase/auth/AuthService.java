@@ -51,6 +51,7 @@ public class AuthService {
                         DBService.getInstance().addNewLecturer(lecturer, id, new DBService.OnDBTaskComplete() {
                             @Override
                             public void onSuccess(@NonNull Task<Void> task) {
+                                firebaseAuth.getCurrentUser().sendEmailVerification();
                                 onRegisterComplete.registerSuccess(authResultTask, id, firebaseAuth.getCurrentUser());
                             }
 
