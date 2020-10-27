@@ -22,4 +22,9 @@
 
     <string name="dialog_registering">Registering … </string>
     <string name="dialog_creating_user">Creating user …</string>
+
+    <string-array name="login_modes">
+        <item>Student</item>
+        <item>Staff</item>
+    </string-array>
 </resources>
