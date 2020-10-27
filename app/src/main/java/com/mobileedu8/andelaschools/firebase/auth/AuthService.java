@@ -1,5 +1,7 @@
 package com.mobileedu8.andelaschools.firebase.auth;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -9,6 +11,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mobileedu8.andelaschools.Dbentities.Lecturer;
 import com.mobileedu8.andelaschools.firebase.db.DBService;
+import com.mobileedu8.andelaschools.utils.Prefs;
+
+import static com.mobileedu8.andelaschools.utils.Constants.STAFF_MODE;
 
 public class AuthService {
 
@@ -41,7 +46,7 @@ public class AuthService {
         });
     }
 
-    public void registerLecturer(@NonNull Lecturer lecturer, OnRegisterComplete onRegisterComplete) {
+    public void registerLecturer(@NonNull Context context, @NonNull Lecturer lecturer, OnRegisterComplete onRegisterComplete) {
 
         firebaseAuth.createUserWithEmailAndPassword(lecturer.getEmail(), lecturer.getPassword())
                 .addOnCompleteListener(task -> {
@@ -52,7 +57,11 @@ public class AuthService {
                             @Override
                             public void onSuccess(@NonNull Task<Void> task) {
                                 firebaseAuth.getCurrentUser().sendEmailVerification();
-                                onRegisterComplete.registerSuccess(authResultTask, id, firebaseAuth.getCurrentUser());
+                                if (Prefs.setUserMode(STAFF_MODE, context)) {
+                                    onRegisterComplete.registerSuccess(authResultTask, id, firebaseAuth.getCurrentUser());
+                                } else {
+                                    onRegisterComplete.registerFailure(authResultTask);
+                                }
                             }
 
                             @Override
@@ -69,6 +78,10 @@ public class AuthService {
 
     public void registerStudent() {
 
+    }
+
+    public FirebaseUser getUser() {
+        return firebaseAuth.getCurrentUser();
     }
 
 

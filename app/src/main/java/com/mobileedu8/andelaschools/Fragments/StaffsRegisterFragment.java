@@ -138,7 +138,7 @@ public class StaffsRegisterFragment extends Fragment implements Validator.Valida
                 staffPasswordEditText.getText().toString()
         );
 
-        AuthService.getInstance().registerLecturer(newLecturer, new AuthService.OnRegisterComplete() {
+        AuthService.getInstance().registerLecturer(getActivity(), newLecturer, new AuthService.OnRegisterComplete() {
             @Override
             public void registerSuccess(@NonNull Task<AuthResult> task, @NonNull String id, @NonNull FirebaseUser firebaseUser) {
                 progressDialog.dismiss();
