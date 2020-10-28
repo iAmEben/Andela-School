@@ -5,8 +5,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.mobileedu8.andelaschools.R;
@@ -21,6 +23,8 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity implements Validator.ValidationListener {
 
     private Validator validator;
+
+    private Spinner loginModeSpinner;
 
     private ConstraintLayout rootView;
 
@@ -53,6 +57,11 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         emailEditText = findViewById(R.id.email);
         passwordEditText = findViewById(R.id.password);
         loginBtn = findViewById(R.id.login_btn);
+
+        loginModeSpinner = findViewById(R.id.login_modes_spinner);
+        ArrayAdapter<CharSequence> loginModeSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.login_modes, R.layout.spinner_item_layout);
+        loginModeSpinnerAdapter.setDropDownViewResource(R.layout.spinner_drop_down_layout);
+        loginModeSpinner.setAdapter(loginModeSpinnerAdapter);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
