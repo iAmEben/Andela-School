@@ -8,6 +8,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.mobileedu8.andelaschools.R;
+import com.mobileedu8.andelaschools.firebase.auth.AuthService;
+import com.mobileedu8.andelaschools.utils.Prefs;
+
+import static com.mobileedu8.andelaschools.utils.Constants.STAFF_MODE;
+import static com.mobileedu8.andelaschools.utils.Constants.STUDENT_MODE;
 
 public class LoginScreen extends AppCompatActivity {
 
@@ -37,6 +42,19 @@ public class LoginScreen extends AppCompatActivity {
                 startActivity(registerIntent);
             }
         });
+
+        if (AuthService.getInstance().getUser() != null)
+            switch (Prefs.getUserMode(this)) {
+                case STAFF_MODE:
+                    startActivity(new Intent(this, StaffsMainActivity.class));
+                    finish();
+                    break;
+                case STUDENT_MODE:
+                    startActivity(new Intent(this, StudentsMainActivity.class));
+                    finish();
+                    break;
+            }
+
     }
 
     //finds relevant id's for initialization
